@@ -23,10 +23,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Create report file
         run: date +%s > report.txt
-      - name: Commit report
+      - name: Fetch JSON from remote endpoint
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'github-actions-bot@users.noreply.github.com'
-          git add report.txt
-          git commit -am "Automated report"
-          git push          
+          curl https://archlinux.org/mirrors/status/json/ > mirrors.json
+          jq '.version' mirrors.json | grep '^3$'
+          git add mirrors.json
+          git commit -am "Mirror Update $(date -I)"
+          git push
+          
