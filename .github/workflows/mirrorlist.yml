@@ -23,11 +23,11 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions Bot'
           git config --global user.email 'github-actions-bot@users.noreply.github.com'
-          curl https://archlinux.org/mirrors/status/json/ > mirrors.json
+          curl --silent https://archlinux.org/mirrors/status/json/ > mirrors.json
           # Check if the version has been changed: We support version 3, so we
           # don't want to push the mirrorlist if the version has been increased.
           jq '.version' mirrors.json | grep '^3$'
+          git add mirrors.json
           # Add file to the index, or exit immediately if it has not changed.
-          git add mirrors.json || exit 0
-          git commit -am "Mirror Update $(date -I)"
+          git commit -am "Mirror Update $(date -I)" || exit 0
           git push
