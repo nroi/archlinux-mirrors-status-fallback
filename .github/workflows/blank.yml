@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI
 
 # Controls when the workflow will run
@@ -16,13 +14,11 @@ on:
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:          
-  report:
+jobs:
+  mirrorlist:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create report file
-        run: date +%s > report.txt
       - name: Fetch JSON from remote endpoint
         run: |
           git config --global user.name 'GitHub Actions Bot'
@@ -32,4 +28,3 @@ jobs:
           git add mirrors.json
           git commit -am "Mirror Update $(date -I)"
           git push
-          
