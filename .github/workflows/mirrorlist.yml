@@ -31,5 +31,5 @@ jobs:
           git config --global user.email 'github-actions-bot@users.noreply.github.com'
           git add mirrors.json
           # Add file to the index, or exit immediately if it has not changed.
-          git commit -am "Mirror Update $(date -I)" || exit 0
+          git commit -am "Mirrorlist Update $(date -I)" || exit 0
           git push
