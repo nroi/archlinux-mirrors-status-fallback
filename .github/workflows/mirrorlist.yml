@@ -20,11 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Fetch JSON from remote endpoint
-          curl --silent https://archlinux.org/mirrors/status/json/ > mirrors.json
+        run: curl --silent https://archlinux.org/mirrors/status/json/ > mirrors.json
       - name: Check JSON version
-          # Check if the version has changed: We support version 3, so we
-          # don't want to push a new mirrorlist if the version has been increased.
-          jq '.version' mirrors.json | grep '^3$'
+        # Check if the version has changed: We support version 3, so we
+        # don't want to push a new mirrorlist if the version has been increased.
+        run: jq '.version' mirrors.json | grep '^3$'
       - name: Push mirrorlist if it has been updated
         run: |
           git config --global user.name 'GitHub Actions Bot'
